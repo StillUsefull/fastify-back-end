@@ -1,0 +1,17 @@
+{
+  "name": "fastify-back-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 0",
+    "start:dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^4.12.0",
+    "pg": "^8.9.0"
+  }
+}
