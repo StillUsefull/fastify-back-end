@@ -1,9 +1,16 @@
 const fastify = require('fastify')({logger: false});
-const {rootRoute} = require('./routes/index.js');
-const PORT = process.env.PORT || 3000;
+const cookies = require('@fastify/cookie');
+const session = require('@fastify/session');
 const {Client} = require('pg');
 
 
+const {rootRoute} = require('./routes/index.js');
+
+
+const PORT = process.env.PORT || 3000;
+
+
+//postgres
 const client = new Client({
     user: 'admin',
     host: 'localhost',
@@ -12,6 +19,19 @@ const client = new Client({
     port: 5432
 })
 
+//plugins
+fastify.register(cookies);
+fastify.register(session, {secret: '123456789123456789123456789123456789'});
+
+
+//session
+fastify.addHook('preHandler', (request, reply, done) => {
+  request.session.user = {name: 'max'};
+  done();
+})
+
+
+//routes
 fastify.get('/', rootRoute);
 
 const start = async () => {
